@@ -1,13 +1,12 @@
-# Checkpoint
+<h1 align="center">Checkpoint</h1>
+
+> Tired of always failing in life? Well, I cannot help with that. But I can help you fail less in a node application.
 
 [![npm package][npm-img]][npm-url]
-[![Build Status][build-img]][build-url]
 [![Downloads][downloads-img]][downloads-url]
-[![Issues][issues-img]][issues-url]
 [![Code Coverage][codecov-img]][codecov-url]
 
 
-> Tired of always failing in life? Well, I cannot help with that. But I can help you fail less in a node application.
 
 `checkpoint` is the ultimate flaky code helper. With modern days applications, where we must integrate with external services, which can fail, we have to figure out a way of retrying our code. We must go back to somewhere we know we where fine. We must return to a `checkpoint`.
 
@@ -32,7 +31,7 @@ await checkpoint({ retries: 3 }, () => {
   if (someNumber < otherNumber) retry();
 
   try {
-    // solving SAT in polinomial time
+    // solving SAT in polynomial time
   } catch (error) {
     // this error is a flaky one, we should just retry
     retry();
@@ -88,13 +87,9 @@ The checkpoint options are as followed:
   }
 }
 ```
-[build-img]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml/badge.svg
-[build-url]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml
-[downloads-img]:https://img.shields.io/npm/dt/typescript-npm-package-template
-[downloads-url]:https://www.npmtrends.com/typescript-npm-package-template
-[npm-img]:https://img.shields.io/npm/v/typescript-npm-package-template
-[npm-url]:https://www.npmjs.com/package/typescript-npm-package-template
-[issues-img]:https://img.shields.io/github/issues/ryansonshine/typescript-npm-package-template
-[issues-url]:https://github.com/ryansonshine/typescript-npm-package-template/issues
+[downloads-img]:https://img.shields.io/npm/dt/@tvergara/checkpoint
+[downloads-url]:https://www.npmtrends.com/@tvergara/checkpoint
+[npm-img]:https://img.shields.io/npm/v/@tvergara/checkpoint
+[npm-url]:https://www.npmjs.com/package/@tvergara/checkpoint
 [codecov-img]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template/branch/main/graph/badge.svg
 [codecov-url]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template
