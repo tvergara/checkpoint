@@ -1,7 +1,6 @@
 {
-  "name": "typescript-npm-package-template",
+  "name": "@tvergara/checkpoint",
   "version": "0.0.0-development",
-  "description": "A template for creating npm packages using TypeScript and VSCode",
   "main": "./lib/src/index.js",
   "files": [
     "lib/**/*"
@@ -18,15 +17,11 @@
     "test": "jest --coverage",
     "typecheck": "tsc --noEmit"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ryansonshine/typescript-npm-package-template.git"
-  },
   "license": "MIT",
   "author": {
-    "name": "Ryan Sonshine",
-    "email": "ryansonshine@users.noreply.github.com",
-    "url": "https://github.com/ryansonshine"
+    "name": "Tomás Vergara",
+    "email": "tomevergara@uc.cl",
+    "url": "https://github.com/Tvergara"
   },
   "engines": {
     "node": ">=12.0"
@@ -42,10 +37,6 @@
     "semantic-release",
     "codecov"
   ],
-  "bugs": {
-    "url": "https://github.com/ryansonshine/typescript-npm-package-template/issues"
-  },
-  "homepage": "https://github.com/ryansonshine/typescript-npm-package-template#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.24",
