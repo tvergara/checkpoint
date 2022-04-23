@@ -5,8 +5,6 @@
 [![Downloads][downloads-img]][downloads-url]
 [![Issues][issues-img]][issues-url]
 [![Code Coverage][codecov-img]][codecov-url]
-[![Commitizen Friendly][commitizen-img]][commitizen-url]
-[![Semantic Release][semantic-release-img]][semantic-release-url]
 
 
 > Tired of always failing in life? Well, I cannot help with that. But I can help you fail less in a node application.
@@ -22,13 +20,16 @@ npm install @tvergara/checkpoint
 ## Usage
 
 ```ts
-import { checkpoint, Retry } from '@tvergara/checkpoint';
+import { checkpoint, retry } from '@tvergara/checkpoint';
 
 // we define how many retries we can make
-await checkpoint(1, () => {
+await checkpoint({ retries: 3 }, () => {
   // do some awesome stuff
   // ...
   // ...
+
+  // this is weird, this number should not be bigger than the other
+  if (someNumber < otherNumber) retry();
 
   try {
     // solving SAT in polinomial time
@@ -39,6 +40,34 @@ await checkpoint(1, () => {
 });
 ```
 
+### Nested Checkpoints
+At one point or another, we might want to set different checkpoints, and to go back to which ever checkpoint we want. We can do this by specifying a name for a specific checkpoint.
+
+```ts
+await checkpoint({ name: 'first' }, async () => {
+  // doing really important stuff
+  // ...
+
+  await checkpoint({ name: 'second' }, () => {
+
+    if (somethingHappends) {
+      // something went horrible, we must go even further back
+      retry('first');
+    }
+  });
+});
+```
+
+### Checkpoint Options
+The checkpoint options are as followed:
+
+```ts
+{
+  name: 'checkpointId', // checkpoint name to reference in retries, defaults to null
+  logger: console.log, // function to log the checkpoint execution, defaults to null
+  retries: 3, // how many retries are available before raising an error, defaults to 1
+}
+```
 [build-img]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml/badge.svg
 [build-url]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml
 [downloads-img]:https://img.shields.io/npm/dt/typescript-npm-package-template
@@ -49,7 +78,3 @@ await checkpoint(1, () => {
 [issues-url]:https://github.com/ryansonshine/typescript-npm-package-template/issues
 [codecov-img]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template/branch/main/graph/badge.svg
 [codecov-url]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template
-[semantic-release-img]:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-[semantic-release-url]:https://github.com/semantic-release/semantic-release
-[commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
-[commitizen-url]:http://commitizen.github.io/cz-cli/
