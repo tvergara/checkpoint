@@ -1,11 +1,11 @@
-import { checkpoint, Retry } from '../src';
+import { checkpoint, retry } from '../src';
 
 describe('index', () => {
   describe('checkpoint', () => {
     describe('when called with a function which always fails', () => {
       it('should end up raising an error', async () => {
         const result = await checkpoint(1, () => {
-          throw new Retry('failure');
+          retry();
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         }).catch(error => error);
 
@@ -33,7 +33,7 @@ describe('index', () => {
           if (functionSuccesses[i]) return;
 
           i += 1;
-          throw new Retry('failure');
+          retry();
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         }).catch(error => error);
 
@@ -46,7 +46,7 @@ describe('index', () => {
           if (functionSuccesses[i]) return;
 
           i += 1;
-          throw new Retry('failure');
+          retry();
         });
 
         expect(i).toBe(1);

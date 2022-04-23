@@ -34,7 +34,7 @@ await checkpoint(1, () => {
     // solving SAT in polinomial time
   } catch (error) {
     // this error is a flaky one, we should just retry
-    throw Retry('classic flaky error');
+    retry();
   }
 });
 ```
