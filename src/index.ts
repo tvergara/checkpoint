@@ -4,6 +4,7 @@ export interface checkpointOptions {
   retries?: number;
   logger?: (arg0: string) => void;
   name?: string;
+  onRetry?: () => void | Promise<void>;
 }
 
 export function retry(checkpointName?: string): void {
@@ -14,7 +15,14 @@ export async function checkpoint(
   options: checkpointOptions = {},
   func: () => void | Promise<void>
 ): Promise<void> {
-  const { retries = 1, logger = null, name = null } = options;
+  const {
+    retries = 1,
+    logger = null,
+    name = null,
+    onRetry = () => {
+      return;
+    },
+  } = options;
 
   logger?.('Checkpoint registered');
   for (let i = 0; i <= retries; i++) {
@@ -26,6 +34,7 @@ export async function checkpoint(
     } catch (error) {
       if (isRetryableError(error, name)) {
         logger?.(`Try number i: ${i} failed`);
+        await onRetry();
         continue;
       }
       throw error;

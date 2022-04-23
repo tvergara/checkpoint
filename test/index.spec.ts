@@ -120,5 +120,20 @@ describe('index', () => {
         expect(result instanceof TryError).toBe(true);
       });
     });
+
+    describe('when an onRetry callback has been set', () => {
+      it('should call the on retry callback', async () => {
+        let onRetryCalled = false;
+        function onRetry() {
+          onRetryCalled = true;
+        }
+
+        await checkpoint({ onRetry }, () => {
+          retry();
+        }).catch(() => null);
+
+        expect(onRetryCalled).toBe(true);
+      });
+    });
   });
 });

@@ -58,6 +58,23 @@ await checkpoint({ name: 'first' }, async () => {
 });
 ```
 
+### On Retry Callback
+We might have to perfom some operations in order to come back to a useful state in order to retry our code. We can set this by using the `onRetry` callback option.
+
+```ts
+function onRetry() {
+  a = 0;
+}
+await checkpoint({ onRetry }, () => {
+
+  // a changes its value
+
+  if (someThingHappends) {
+     retry(); // a will start at 0 at the next try
+  }
+});
+```
+
 ### Checkpoint Options
 The checkpoint options are as followed:
 
@@ -66,6 +83,9 @@ The checkpoint options are as followed:
   name: 'checkpointId', // checkpoint name to reference in retries, defaults to null
   logger: console.log, // function to log the checkpoint execution, defaults to null
   retries: 3, // how many retries are available before raising an error, defaults to 1
+  onRetry: () => { // specify a callback before retrying
+    // do things
+  }
 }
 ```
 [build-img]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml/badge.svg
