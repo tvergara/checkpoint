@@ -1,6 +1,6 @@
 {
   "name": "@tvergara/checkpoint",
-  "version": "0.0.0-development",
+  "version": "0.0.4",
   "main": "./lib/src/index.js",
   "files": [
     "lib/**/*"
